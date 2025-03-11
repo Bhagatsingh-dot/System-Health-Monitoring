@@ -1,0 +1,40 @@
+#!/bin/bash
+
+
+echo "===================="
+echo "CPU_USAGE"
+echo "===================="
+cpu_usage=$(ps -aux --sort=-%cpu | awk 'NR==2 || NR==3 {printf "USER:%s PID=%s CPU=%s MEM=%s\n",$1, $2, $3, $4}')
+echo -e "$cpu_usage"
+
+echo
+
+echo "===================="
+echo "MEM_USAGE"
+echo "===================="
+mem_usage=$(free -h | awk 'NR==2 {printf "Mem: Total=%s Used=%s Free=%s\n", $2, $3, $4}')
+echo $mem_usage
+
+echo
+
+echo "==================="
+echo "DISK_USAGE"
+echo "==================="
+disk_usage=$(lsblk)
+echo -e "$disk_usage"
+
+echo
+
+echo "==================="
+echo "LOGGED-IN_users"
+echo "==================="
+logged_in=$(who -qa)
+echo $logged_in
+
+echo
+
+echo "=================="
+echo "RUNNIN_PS"
+echo "================="
+p_s=$(ps -aux | head -6 )
+echo -e "$p_s"
